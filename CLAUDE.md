@@ -54,10 +54,17 @@ We follow GitHub Flow with strict CI gates (learned from Tarotvio):
    - CI (`.github/workflows/ci.yml`) must be **GREEN** before merging:
      - Frontend: Lint (`eslint`), Typecheck (`tsc --noEmit`), Unit tests (`vitest`), Build (`next build`).
      - Backend: Unit tests, Mockito mocks, ArchUnit architecture rules (`mvn test`), Application package.
-3. **Merge & Deploy**:
+3. **Flow Diagrams & Review Gate**:
+   - Flow-affecting PRs **MUST** include an Archify interactive diagram and desktop preview in `docs/architecture/<scope>.<type>.png` following `docs/architecture/pr-flow-diagrams.md`.
+   - Changes without behavior-flow impact must explicitly state `Diagram: N/A — no behavior-flow impact`.
+4. **Merge & Deploy**:
    - Merge to `main` via PR (Squash and merge or Rebase).
    - Deploy workflow (`.github/workflows/deploy.yml`) builds immutable container images to GitHub Container Registry (GHCR) and deploys to VPS host `100.102.202.99:/opt/velstrong-book`.
 
+## On-Demand Playbooks
+
+- Flow-affecting PR diagrams: `docs/architecture/pr-flow-diagrams.md`
+- Diagram toolchain: `.claude/skills/archify/SKILL.md`
 ---
 
 ## Local Development Commands
