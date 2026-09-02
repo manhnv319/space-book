@@ -1,0 +1,92 @@
+/* Buttons */
+.button { display: inline-flex; align-items: center; justify-content: center; min-height: 2.9rem; padding: .75rem 1.1rem; border: 1px solid var(--black); border-radius: var(--radius-sm); background: var(--black); color: #fff; font-weight: 700; cursor: pointer; transition: background var(--dur-fast) ease, color var(--dur-fast) ease, opacity var(--dur-fast) ease; }
+.button:hover { background: var(--color-ink-soft); text-decoration: none; }
+.button-small { min-height: 2.25rem; padding: .5rem .8rem; font-size: .86rem; }
+.button-secondary { background: transparent; color: var(--black); }
+.button-secondary:hover { background: var(--black); color: #fff; }
+.button-full { width: 100%; margin-top: auto; }
+.button:disabled { cursor: not-allowed; opacity: .45; }
+
+.text-link { display: inline-flex; min-height: 2.75rem; align-items: center; color: var(--black); font-weight: 700; }
+.link-button { display: inline-flex; min-height: 2.75rem; align-items: center; padding: 0; border: 0; background: transparent; color: var(--black); font: inherit; font-weight: 800; cursor: pointer; }
+.link-button:hover { text-decoration: underline; text-underline-offset: .25rem; }
+
+.page-section { margin-block: 4rem; padding: clamp(2rem, 5vw, 4.75rem); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+
+@media (max-width: 700px) { .page-section { margin-block: 2rem; } }
+@media (max-width: 480px) { .page-section { padding: 1.5rem 1.25rem; } }
+
+/* Loading state */
+.loading-screen { display: grid; width: 100%; min-height: 100dvh; margin: 0; place-items: center; background: var(--paper); }
+.loading-card { display: grid; justify-items: center; gap: 1.15rem; width: min(calc(100% - 2rem), 20rem); padding: 2.5rem 2rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow); }
+.loading-card .auth-brand { margin-bottom: .35rem; }
+.loading-spinner { width: 2rem; height: 2rem; border: 2px solid #d8d8d8; border-top-color: var(--black); border-radius: 50%; animation: loading-spin .75s linear infinite; }
+.loading-card p { margin: 0; color: var(--muted); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
+.status-note { padding: 1rem; border-left: 3px solid var(--black); background: var(--color-scrim); color: var(--muted); line-height: 1.5; }
+
+/* Badge primitive — dùng cho cover badge (book-card) và category chip (book detail) */
+.badge { display: inline-flex; align-items: center; padding: .3rem .7rem; border-radius: var(--radius-sm); font-size: .78rem; font-weight: 700; background: var(--black); color: #fff; }
+.badge-muted { background: var(--color-scrim); color: var(--black); }
+.badge-cover { position: absolute; top: .75rem; left: .75rem; }
+
+/* Skeleton primitive — shimmer bằng CSS gradient + background-position */
+.skeleton { background: linear-gradient(100deg, var(--color-scrim) 30%, #f7f7f7 45%, var(--color-scrim) 60%); background-size: 250% 100%; animation: skeleton-shimmer 1.6s ease-in-out infinite; }
+.skeleton-text { height: .9rem; border-radius: var(--radius-sm); }
+.skeleton-cover { width: 100%; aspect-ratio: 3/4; border-radius: var(--radius); }
+.skeleton-card { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+
+/* Toast — vị trí/màu; animation entrance/autohide xem motion.css */
+.toast { position: fixed; z-index: var(--z-toast); display: inline-flex; align-items: center; gap: .6rem; padding: .85rem 1.1rem; border-radius: var(--radius-sm); background: var(--ink); color: #fff; font-size: .88rem; font-weight: 600; box-shadow: var(--shadow-lg); }
+.toast-success { background: #205c33; }
+.toast-error { background: #7a2620; }
+
+/* Book cover — hợp nhất book-card-image-placeholder + detail-cover-placeholder */
+.book-cover-placeholder { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 1rem; color: var(--text-muted); background: var(--surface-muted); font-family: var(--font-display); font-size: .9rem; font-weight: 600; line-height: 1.35; text-align: center; }
+.book-cover-placeholder--detail { aspect-ratio: 3/4; font-size: 1.2rem; }
+
+/* Book card & grid */
+.book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1.5rem; }
+.book-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; transition: transform var(--dur-base) var(--ease-out-quint), box-shadow var(--dur-base) var(--ease-out-quint); }
+.book-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.book-card-image-wrapper { position: relative; width: 100%; aspect-ratio: 3/4; background: var(--color-scrim); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.book-card-image { width: 100%; height: 100%; object-fit: cover; }
+.book-card-content { padding: 1.25rem; display: flex; flex-direction: column; flex: 1; }
+.book-card-title { margin: 0 0 0.4rem; font-size: 1.1rem; font-weight: 700; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.7rem; }
+.book-card-publisher { margin: 0 0 1rem; color: var(--muted); font-size: 0.82rem; }
+.book-card-pricing { margin-top: auto; padding-top: 0.75rem; border-top: 1px dashed var(--line); display: grid; gap: 0.35rem; }
+.price-item { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+.price-label { color: var(--muted); }
+.price-value { font-weight: 700; color: var(--black); }
+.price-value.highlight { color: var(--color-danger); font-size: 0.95rem; }
+.book-card-actions { margin-top: 1rem; }
+
+.empty-state { text-align: center; padding: 4rem 2rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem; margin-top: 3rem; }
+.pagination-link, .pagination-page { display: inline-flex; min-height: 2.35rem; align-items: center; justify-content: center; padding: .45rem .7rem; border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--black); font-size: .84rem; font-weight: 700; white-space: nowrap; }
+.pagination-icon-link { width: 2.35rem; padding: .45rem; }
+.pagination-icon-link svg { width: 1.1rem; height: 1.1rem; }
+.pagination-link:hover, .pagination-page:hover { border-color: var(--black); background: var(--black); color: #fff; text-decoration: none; }
+.pagination-link.is-disabled { color: var(--muted); cursor: not-allowed; opacity: .5; }
+.pagination-pages { display: flex; align-items: center; gap: .35rem; }
+.pagination-page { min-width: 2.35rem; }
+.pagination-page.is-current { border-color: var(--black); background: var(--black); color: #fff; }
+.pagination-ellipsis { padding-inline: .15rem; color: var(--muted); font-weight: 700; }
+.pagination-info, .pagination-position { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+@media (max-width: 640px) { .pagination { gap: .35rem; } .pagination-link, .pagination-page { min-height: 2.15rem; padding-inline: .55rem; font-size: .78rem; } }
+.notification-bell { position: relative; }
+.notification-bell > .header-action { padding: 0; border: 0; background: transparent; font: inherit; cursor: pointer; }
+.notification-badge { position: absolute; top: -.35rem; right: -.4rem; display: grid; min-width: 1.15rem; height: 1.15rem; place-items: center; padding: 0 .22rem; border: 2px solid var(--surface); border-radius: 999px; background: var(--color-danger); color: #fff; font-size: .62rem; font-weight: 800; line-height: 1; }
+.notification-panel { position: absolute; z-index: var(--z-dialog); top: calc(100% + .75rem); right: 0; width: min(23rem, calc(100vw - 2rem)); overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow-lg); }
+.notification-panel header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 1rem; border-bottom: 1px solid var(--line); }
+.notification-panel header span { display: flex; align-items: center; gap: .7rem; }
+.notification-panel header button { margin: 0; padding: 0; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: .76rem; font-weight: 800; cursor: pointer; }
+.notification-panel > p { margin: 0; padding: 1.25rem 1rem; color: var(--muted); font-size: .88rem; }
+.notification-panel ol { max-height: min(30rem, 60dvh); margin: 0; padding: 0; overflow-y: auto; list-style: none; }
+.notification-panel li { border-bottom: 1px solid var(--line); }
+.notification-panel li:last-child { border-bottom: 0; }
+.notification-panel li.is-unread { background: var(--color-scrim); }
+.notification-panel li a { display: grid; gap: .2rem; padding: .85rem 1rem; color: inherit; text-decoration: none; }
+.notification-panel li a:hover { background: var(--paper); }
+.notification-panel li strong { font-size: .86rem; }
+.notification-panel li span, .notification-panel li time { color: var(--muted); font-size: .76rem; line-height: 1.4; }

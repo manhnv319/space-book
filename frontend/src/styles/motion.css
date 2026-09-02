@@ -1,0 +1,7 @@
+@keyframes loading-spin { to { transform: rotate(360deg); } }
+@keyframes skeleton-shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+@keyframes toast-autohide { 0%, 88% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-.4rem); } }
+@keyframes toast-autohide-reduced { 0%, 100% { opacity: 1; } }
+.button:active:not(:disabled) { transform: scale(.98); }
+.toast { animation: toast-autohide 3.6s var(--ease-out-quint) forwards; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } .toast { animation-duration: 3.6s !important; animation-name: toast-autohide-reduced !important; } }

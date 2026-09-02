@@ -1,0 +1,9 @@
+import { createBookCopyAction, updateBookCopyAction } from "@/app/actions/admin-books";
+import type { BookCopy, BookCopyCondition, BookCopyStatus } from "@/lib/types/admin";
+
+const STATUSES: BookCopyStatus[] = ["AVAILABLE", "RENTED", "SOLD", "DAMAGED", "LOST", "MAINTENANCE"];
+const CONDITIONS: BookCopyCondition[] = ["NEW", "LIKE_NEW", "GOOD", "FAIR", "POOR"];
+
+export function BookCopyManagement({ bookId, copies }: Readonly<{ bookId: number; copies: BookCopy[] }>) {
+  return <section className="admin-section"><div className="admin-section-header"><h2>Kho sách · #{bookId}</h2><form action={createBookCopyAction} className="admin-inline-form"><input name="bookId" type="hidden" value={bookId} /><select name="condition" defaultValue="GOOD">{CONDITIONS.map((value) => <option key={value}>{value}</option>)}</select><button className="button button-small">Nhập bản sao</button></form></div>{copies.length === 0 ? <p className="admin-empty">Chưa có bản sao vật lý.</p> : <div className="admin-table-scroll"><table className="admin-table"><thead><tr><th>Mã bản sao</th><th>Trạng thái</th><th>Tình trạng</th><th>Ghi chú</th><th /></tr></thead><tbody>{copies.map((copy) => <tr key={copy.id}><td>#{copy.id}</td><td colSpan={4}><form action={updateBookCopyAction} className="admin-inline-form"><input name="copyId" type="hidden" value={copy.id} /><select name="status" defaultValue={copy.status}>{STATUSES.map((value) => <option key={value}>{value}</option>)}</select><select name="condition" defaultValue={copy.condition}>{CONDITIONS.map((value) => <option key={value}>{value}</option>)}</select><input name="notes" defaultValue={copy.notes ?? ""} placeholder="Ghi chú tình trạng" /><button className="button button-small button-secondary">Lưu</button></form></td></tr>)}</tbody></table></div>}</section>;
+}

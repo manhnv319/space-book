@@ -1,0 +1,113 @@
+spring:
+  application:
+    name: book-backend-hex
+
+  profiles:
+    default: mongodb
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
+      - org.springframework.boot.jdbc.autoconfigure.DataSourceInitializationAutoConfiguration
+      - org.springframework.boot.jdbc.autoconfigure.DataSourceTransactionManagerAutoConfiguration
+      - org.springframework.boot.jdbc.autoconfigure.JdbcTemplateAutoConfiguration
+      - org.springframework.boot.hibernate.autoconfigure.HibernateJpaAutoConfiguration
+      - org.springframework.boot.flyway.autoconfigure.FlywayAutoConfiguration
+      - org.springframework.boot.data.mongodb.autoconfigure.DataMongoRepositoriesAutoConfiguration
+      - org.springframework.boot.data.mongodb.autoconfigure.DataMongoReactiveRepositoriesAutoConfiguration
+      - org.springframework.boot.data.redis.autoconfigure.DataRedisRepositoriesAutoConfiguration
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5439/book_store}
+    username: ${DB_USERNAME:book_user}
+    password: ${DB_PASSWORD:book_pass}
+    driver-class-name: org.postgresql.Driver
+
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  mongodb:
+    uri: ${MONGODB_URI:mongodb://localhost:27017/book_store?replicaSet=rs0&directConnection=true}
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 2000ms
+
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=5m
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 8080
+
+app:
+  web-push:
+    enabled: ${WEB_PUSH_ENABLED:false}
+    public-key: ${WEB_PUSH_PUBLIC_KEY:}
+    private-key: ${WEB_PUSH_PRIVATE_KEY:}
+    subject: ${WEB_PUSH_SUBJECT:mailto:support@velstrongbook.asia}
+  media:
+    storage-path: ${MEDIA_STORAGE_PATH:./uploads}
+    max-bytes: ${MEDIA_MAX_BYTES:10485760}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://127.0.0.1:3100}
+  auth:
+    reset-hmac-secret: ${RESET_HMAC_SECRET:${JWT_SECRET:velstrong-book-store-reset-secret-2026}}
+  jwt:
+    secret: ${JWT_SECRET:velstrong-book-store-secret-key-2026-very-long-secret}
+    access-token-expiry: 3600
+    refresh-token-expiry: 604800
+  bank-transfer:
+    # BIN 970454 = BVBank, the bank behind Timo. Account details are public
+    # information (customers transfer to them), but they stay in env vars so a
+    # deployment can be repointed without a rebuild.
+    bank-name: ${BANK_TRANSFER_BANK_NAME:BVBank (Timo)}
+    bank-bin: ${BANK_TRANSFER_BIN:970454}
+    account-number: ${BANK_TRANSFER_ACCOUNT_NUMBER:}
+    account-name: ${BANK_TRANSFER_ACCOUNT_NAME:}
+    expiry-minutes: ${BANK_TRANSFER_EXPIRY_MINUTES:30}
+    imap:
+      # Off unless explicitly enabled: the poller reads a real person's mailbox.
+      enabled: ${BANK_TRANSFER_IMAP_ENABLED:false}
+      host: ${BANK_TRANSFER_IMAP_HOST:imap.gmail.com}
+      port: ${BANK_TRANSFER_IMAP_PORT:993}
+      folder: ${BANK_TRANSFER_IMAP_FOLDER:INBOX}
+      username: ${BANK_TRANSFER_IMAP_USERNAME:}
+      # Gmail app password, never the account password.
+      password: ${BANK_TRANSFER_IMAP_PASSWORD:}
+      poll-delay-ms: ${BANK_TRANSFER_IMAP_POLL_DELAY_MS:15000}
+      expected-sender: ${BANK_TRANSFER_IMAP_SENDER:support@timo.vn}
+      # authserv-id of the receiving mail provider; only its Authentication-Results verdict is trusted.
+      auth-serv-id: ${BANK_TRANSFER_IMAP_AUTHSERV_ID:mx.google.com}
+      lookback-minutes: ${BANK_TRANSFER_IMAP_LOOKBACK_MINUTES:180}
+  vnpay:
+    tmn-code: ${VNPAY_TMN_CODE:}
+    hash-secret: ${VNPAY_HASH_SECRET:}
+    url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+    return-url: ${VNPAY_RETURN_URL:http://localhost:3000/checkout/status}
+    ipn-url: ${VNPAY_IPN_URL:http://localhost:8080/api/v1/payment/vnpay/ipn}

@@ -1,0 +1,224 @@
+security:
+  public:
+    - method: POST
+      path: /api/v1/auth/token
+    - method: POST
+      path: /api/v1/auth/refresh
+    - method: POST
+      path: /api/v1/users/register
+    - method: POST
+      path: /api/v1/users/forgot-password
+    - method: POST
+      path: /api/v1/users/reset-password
+    - method: POST
+      path: /api/v1/users/verify-email
+    - method: GET
+      path: /media/**
+    - method: GET
+      path: /api/v1/books/**
+    - method: GET
+      path: /api/v1/categories
+    - method: GET
+      path: /api/v1/blog-posts
+    - method: GET
+      path: /api/v1/blog-posts/{slug}
+    - method: GET
+      path: /api/v1/payment/vnpay/callback
+    - method: POST
+      path: /api/v1/payment/vnpay/ipn
+
+  authenticated:
+    - method: POST
+      path: /api/v1/auth/logout
+    - method: GET
+      path: /api/v1/users/me
+    - method: PUT
+      path: /api/v1/users/me
+    - method: PUT
+      path: /api/v1/users/me/password
+    - method: GET
+      path: /api/v1/addresses
+    - method: POST
+      path: /api/v1/addresses
+    - method: PUT
+      path: /api/v1/addresses/{id}
+    - method: DELETE
+      path: /api/v1/addresses/{id}
+    - method: GET
+      path: /api/v1/cart
+    - method: POST
+      path: /api/v1/cart/items
+    - method: POST
+      path: /api/v1/books/{bookId}/reviews
+    - method: PUT
+      path: /api/v1/books/{bookId}/reviews/{reviewId}
+    - method: GET
+      path: /api/v1/reviews/books/{bookId}/me
+    - method: PUT
+      path: /api/v1/cart/items/{itemId}
+    - method: DELETE
+      path: /api/v1/cart/items/{itemId}
+    - method: POST
+      path: /api/v1/orders
+    - method: GET
+      path: /api/v1/orders/me
+    - method: GET
+      path: /api/v1/orders/me/by-status
+    - method: GET
+      path: /api/v1/orders/me/summary
+    - method: GET
+      path: /api/v1/orders/{id}
+    - method: POST
+      path: /api/v1/orders/{id}/cancel
+    - method: POST
+      path: /api/v1/payment/vnpay/create
+    - method: POST
+      path: /api/v1/payment/bank-transfer/create
+    - method: GET
+      path: /api/v1/payment/bank-transfer/{orderId}
+    - method: GET
+      path: /api/v1/payment/bank-transfer/{orderId}/qr
+    - method: GET
+      path: /api/v1/payment/history
+    - method: GET
+      path: /api/v1/rentals/me
+    - method: GET
+      path: /api/v1/rentals/{id}
+    - method: POST
+      path: /api/v1/rentals/{id}/return
+    - method: GET
+      path: /api/v1/subscriptions/active
+    - method: POST
+      path: /api/v1/subscriptions/purchase
+    - method: GET
+      path: /api/v1/subscriptions/me
+    - method: GET
+      path: /api/v1/subscriptions/me/active
+    - method: POST
+      path: /api/v1/subscriptions/me/{id}/cancel
+    - method: POST
+      path: /api/v1/subscriptions/me/{id}/extend
+    - method: GET
+      path: /api/v1/subscriptions/me/{id}/payment
+    - method: GET
+      path: /api/v1/subscriptions/me/{id}/payment/qr
+    - method: POST
+      path: /api/v1/vouchers/quote
+    - method: GET
+      path: /api/v1/support/conversation
+    - method: POST
+      path: /api/v1/support/conversation/messages
+    - method: GET
+      path: /api/v1/notifications
+    - method: GET
+      path: /api/v1/notifications/unread-count
+    - method: PATCH
+      path: /api/v1/notifications/{id}/read
+    - method: PATCH
+      path: /api/v1/notifications/read-all
+    - method: GET
+      path: /api/v1/notifications/stream
+    - method: GET
+      path: /api/v1/notifications/push/public-key
+    - method: POST
+      path: /api/v1/notifications/push/subscriptions
+    - method: DELETE
+      path: /api/v1/notifications/push/subscriptions
+
+  permissions:
+    - method: GET
+      path: /api/v1/books/bestseller-suggestions
+      permission: book:manage
+    - method: PUT
+      path: /api/v1/books/{id}/flags
+      permission: book:manage
+    - method: POST
+      path: /api/v1/books/{id}/cover
+      permission: book:manage
+    - method: GET
+      path: /api/v1/books/{bookId}/copies
+      permission: book:manage
+    - method: POST
+      path: /api/v1/books/{bookId}/copies
+      permission: book:manage
+    - method: PATCH
+      path: /api/v1/book-copies/{copyId}
+      permission: book:manage
+    - method: POST
+      path: /api/v1/blog-posts
+      permission: book:manage
+    - method: PUT
+      path: /api/v1/blog-posts/{id}
+      permission: book:manage
+    - method: DELETE
+      path: /api/v1/blog-posts/{id}
+      permission: book:manage
+    - method: POST
+      path: /api/v1/blog-posts/{id}/publish
+      permission: book:manage
+    - method: POST
+      path: /api/v1/blog-posts/{id}/unpublish
+      permission: book:manage
+    - method: PUT
+      path: /api/v1/orders/{id}/status
+      permission: order:update-status
+    - method: GET
+      path: /api/v1/orders
+      permission: order:read:all
+    - method: GET
+      path: /api/v1/orders/{id}/management
+      permission: order:read:all
+    - method: POST
+      path: /api/v1/payment/refund/{orderId}
+      permission: payment:refund
+    - method: GET
+      path: /api/v1/bank-transfers/unmatched
+      permission: payment:refund
+    - method: POST
+      path: /api/v1/bank-transfers/unmatched/{id}/resolve
+      permission: payment:refund
+    - method: GET
+      path: /api/v1/support/conversations/unread-count
+      permission: order:read:all
+    - method: GET
+      path: /api/v1/support/conversations
+      permission: order:read:all
+    - method: GET
+      path: /api/v1/support/conversations/{id}
+      permission: order:read:all
+    - method: POST
+      path: /api/v1/support/conversations/{id}/messages
+      permission: order:read:all
+    - method: GET
+      path: /api/v1/rentals
+      permission: rental:read:all
+    - method: GET
+      path: /api/v1/rentals/overdue
+      permission: rental:read:all
+    - method: POST
+      path: /api/v1/rentals/{id}/force-return
+      permission: rental:checkin
+    - method: POST
+      path: /api/v1/rentals/start/{orderId}
+      permission: rental:checkin
+    - method: GET
+      path: /api/v1/subscriptions
+      permission: subscription:manage
+    - method: POST
+      path: /api/v1/subscriptions
+      permission: subscription:manage
+    - method: GET
+      path: /api/v1/vouchers
+      permission: voucher:manage
+    - method: GET
+      path: /api/v1/vouchers/{id}
+      permission: voucher:manage
+    - method: POST
+      path: /api/v1/vouchers
+      permission: voucher:manage
+    - method: PUT
+      path: /api/v1/vouchers/{id}
+      permission: voucher:manage
+    - method: DELETE
+      path: /api/v1/vouchers/{id}
+      permission: voucher:manage

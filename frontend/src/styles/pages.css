@@ -1,0 +1,197 @@
+/* Home */
+.hero { max-width: 55rem; }
+.eyebrow { margin: 0 0 .75rem; color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+.placeholder { max-width: 45rem; }
+.placeholder h1 { font-size: clamp(2rem, 5vw, 3.25rem); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.5rem; margin-block: 4rem; padding: 0; list-style: none; }
+.feature-card { padding: 2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.feature-card h3 { margin: 0 0 0.5rem; font-size: 1.2rem; }
+.feature-card p { margin: 0; color: var(--muted); line-height: 1.5; font-size: 0.95rem; }
+
+/* Catalog + section header (dùng chung home/catalog) */
+.catalog-section, .catalog-container, .book-detail-container { margin-block: 3rem; }
+/* wrap + gap so the "view all" link drops below the heading instead of being
+   squeezed into a two-line stub once the title needs the full width */
+.section-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: .5rem 1.5rem; margin-bottom: 2rem; }
+.section-header h2 { font-size: 1.8rem; margin: 0 0 0.25rem; }
+.section-subtitle { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+/* Home — book shelf (horizontal scroll, CSS-only, no carousel JS) */
+.book-shelf { margin-block: 3.5rem; }
+.book-shelf-header { padding-bottom: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+.book-shelf-row {
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+  padding: .25rem .25rem 1rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: .25rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+.book-shelf-row:focus-visible { outline: 2px solid var(--black); outline-offset: 4px; border-radius: var(--radius-sm); }
+.book-shelf-item { flex: 0 0 16rem; scroll-snap-align: start; }
+@media (max-width: 480px) { .book-shelf-item { flex-basis: 12.5rem; } }
+
+/* Book detail */
+.breadcrumb { display: flex; grid-area: breadcrumb; align-items: center; gap: 0.5rem; margin: 0; color: var(--muted); font-size: 0.85rem; flex-wrap: wrap; }
+.breadcrumb-separator { color: var(--line-strong); }
+.breadcrumb-current { color: var(--black); font-weight: 600; }
+.book-detail-layout { display: grid; grid-template-areas: "breadcrumb info" "cover info"; grid-template-columns: 20rem minmax(0, 1fr); column-gap: 3rem; row-gap: 2rem; align-items: start; }
+.book-detail-cover { grid-area: cover; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--color-scrim); box-shadow: var(--shadow); }
+.detail-cover-image { width: 100%; height: auto; display: block; aspect-ratio: 3/4; object-fit: cover; }
+.book-detail-info { grid-area: info; display: flex; flex-direction: column; gap: 1.75rem; }
+.detail-category-list { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.detail-title { font-size: clamp(1.8rem, 4vw, 2.5rem); margin: 0; line-height: 1.2; }
+.detail-publisher { margin: -0.75rem 0 0; color: var(--muted); font-size: 0.95rem; }
+.detail-summary h3, .book-attributes h3 { margin: 0 0 0.5rem; font-size: 1.1rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; }
+.detail-summary p { margin: 0; color: var(--ink); line-height: 1.6; }
+
+.purchase-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; align-items: stretch; }
+.option-card { min-width: 0; padding: 1.5rem; border: 2px solid var(--line); border-radius: var(--radius); background: var(--surface); display: flex; flex-direction: column; gap: 1.25rem; }
+.option-card.purchase-card { border-color: var(--black); }
+.option-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .75rem; align-items: start; }
+.option-header h3 { min-width: 0; margin: 0; font-size: 1.1rem; }
+.option-price { white-space: nowrap; font-size: 1.3rem; font-weight: 800; color: var(--color-danger); }
+.option-desc { margin: 0; color: var(--muted); font-size: 0.85rem; line-height: 1.4; }
+.rental-rates { margin: 0; padding: 0.75rem; background: var(--paper); border-radius: var(--radius-sm); display: grid; gap: 0.4rem; font-size: 0.85rem; }
+.rate-row { display: flex; justify-content: space-between; gap: .75rem; color: var(--muted); }
+.rate-row strong { color: var(--black); }
+.rate-row.deposit-row { border-top: 1px dashed var(--line-strong); padding-top: 0.4rem; margin-top: 0.2rem; }
+
+.attribute-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: 1rem; margin-top: 0.75rem; }
+.attribute-item { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.9rem; }
+.attribute-label { color: var(--muted); font-size: 0.8rem; }
+.attribute-value { font-weight: 700; color: var(--black); }
+.book-review-panel { display: grid; gap: 1.25rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.review-summary { display: flex; align-items: end; justify-content: space-between; gap: 1rem; }.review-summary h2 { margin: 0; font-size: 1.4rem; }.review-stars { color: #b94d3b; letter-spacing: .08em; white-space: nowrap; }.review-empty, .review-source { color: var(--muted); font-size: .82rem; }.review-source { margin-left: .75rem; }
+.review-list, .review-forms { display: grid; gap: .85rem; }.review-item, .review-form { display: grid; gap: .65rem; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); }.review-item p, .review-form-label { margin: 0; line-height: 1.5; }.review-form-label { font-weight: 700; }.review-rating-input { display: flex; gap: .15rem; }.review-rating-input label { cursor: pointer; font-size: 1.5rem; color: var(--line-strong); }.review-rating-input label:has(input:checked), .review-rating-input label:has(input:checked) ~ label { color: var(--line-strong); }.review-rating-input label:has(input:checked) { color: #b94d3b; }.review-rating-input input { position: absolute; opacity: 0; }.review-form textarea { min-height: 6rem; padding: .75rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); font: inherit; resize: vertical; }.review-form .button { justify-self: start; }.form-error { margin: 0; color: var(--color-danger); }.form-success { margin: 0; color: #205c33; }
+
+@media (max-width: 850px) {
+  .book-detail-layout { grid-template-areas: "breadcrumb" "cover" "info"; grid-template-columns: 1fr; gap: 2rem; }
+  .book-detail-cover { max-width: 18rem; margin: 0 auto; }
+}
+
+/* Add-to-cart form (book detail) */
+.add-to-cart-form { display: grid; gap: .85rem; margin-top: auto; }
+.quantity-stepper { display: inline-flex; align-items: stretch; width: fit-content; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); overflow: hidden; }
+.quantity-stepper button { display: grid; place-items: center; min-width: 2.75rem; min-height: 2.75rem; border: 0; background: var(--paper); color: var(--black); font-size: 1.1rem; cursor: pointer; }
+.quantity-stepper button:hover { background: var(--color-scrim); }
+.quantity-stepper input { width: 3.5rem; min-height: 2.75rem; border: 0; border-inline: 1px solid var(--line-strong); text-align: center; color: var(--black); font: inherit; -moz-appearance: textfield; }
+.rental-term-picker { display: grid; gap: .65rem; }
+.rental-term-fields { display: flex; gap: .75rem; flex-wrap: wrap; }
+.rental-term-fields label { display: grid; gap: .35rem; flex: 1 1 8rem; color: var(--muted); font-size: .8rem; font-weight: 700; }
+.rental-term-fields select { min-height: 2.75rem; padding: .5rem .6rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: #fff; color: var(--black); font: inherit; }
+.rental-term-price { margin: 0; font-size: .95rem; color: var(--black); }
+.rental-term-note { margin: 0; color: var(--muted); font-size: .78rem; }
+
+@media (max-width: 680px) {
+  .purchase-options { grid-template-columns: 1fr; }
+}
+
+/* Cart page */
+.cart-page { margin-block: 3rem; }
+.cart-page h1 { margin: 0 0 1.75rem; font-size: clamp(1.6rem, 4vw, 2.1rem); }
+.cart-layout { display: grid; grid-template-columns: minmax(0, 1fr) 20rem; gap: 2.5rem; align-items: start; }
+.cart-items { display: grid; gap: 1.25rem; margin: 0; padding: 0; list-style: none; }
+.cart-item-row { display: grid; grid-template-columns: 5rem minmax(0, 1fr) auto; gap: 1.25rem; align-items: start; padding: 1.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.cart-item-cover { display: block; width: 5rem; aspect-ratio: 3/4; border-radius: var(--radius-sm); overflow: hidden; background: var(--color-scrim); }
+.cart-item-cover img, .cart-item-cover .book-cover-placeholder { width: 100%; height: 100%; object-fit: cover; }
+.cart-item-info { display: grid; gap: .4rem; min-width: 0; }
+.cart-item-title { color: var(--black); font-weight: 700; }
+.cart-item-price, .cart-item-deposit { margin: 0; color: var(--muted); font-size: .85rem; }
+.cart-item-actions { display: grid; gap: .5rem; justify-items: end; }
+.cart-item-update-form { display: flex; gap: .5rem; align-items: center; }
+.cart-item-update-form input { width: 3.5rem; min-height: 2.5rem; padding: .3rem .4rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); text-align: center; }
+
+.cart-summary { display: grid; gap: .85rem; padding: 1.5rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-sm); }
+.cart-summary h2 { margin: 0; font-size: 1.15rem; }
+.receipt-row { display: flex; justify-content: space-between; gap: 1rem; padding-block: .5rem; border-top: 1px dashed var(--line); font-variant-numeric: tabular-nums; }
+.receipt-row:first-of-type { border-top: 0; }
+.receipt-row span { color: var(--muted); }
+.receipt-row-deposit strong { color: var(--color-danger); }
+.cart-summary-note { margin: 0; color: var(--muted); font-size: .78rem; line-height: 1.4; }
+
+.cart-guest-banner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.75rem; padding: 1.1rem 1.25rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+.cart-guest-banner p { margin: 0; color: var(--black); }
+
+.cart-badge { display: inline-grid; place-items: center; min-width: 1.15rem; height: 1.15rem; padding: 0 .3rem; border-radius: 999px; background: var(--color-danger); color: #fff; font-size: .68rem; font-weight: 800; line-height: 1; }
+.header-action { position: relative; }
+/* `.header-action` is a grid, so an in-flow badge becomes a third row and lands
+   under the label. Pin it to the icon's top-right instead. The icon is centred
+   and 1.55rem wide, so its right edge sits at 50% + .775rem. Scoped to the
+   header: `.mobile-user-row` renders the badge inline after the text on purpose. */
+.header-action .cart-badge { position: absolute; top: 0; left: calc(50% + .45rem); }
+.mobile-user-row .cart-badge { margin-left: .35rem; }
+
+@media (max-width: 900px) {
+  .cart-layout { grid-template-columns: 1fr; }
+  .cart-summary { position: sticky; bottom: 0; z-index: var(--z-header); box-shadow: var(--shadow-lg); }
+}
+
+@media (max-width: 560px) {
+  .cart-item-row { grid-template-columns: 3.75rem minmax(0, 1fr); }
+  .cart-item-cover { width: 3.75rem; }
+  .cart-item-actions { grid-column: 1 / -1; justify-items: start; flex-direction: row; }
+}
+
+/* Auth */
+.auth-page { width: 100%; min-height: 100dvh; margin: 0; background: var(--paper); }
+.auth-layer { position: fixed; inset: 0; z-index: var(--z-dialog); display: grid; width: 100%; min-height: 100dvh; place-items: center; padding: max(1rem, env(safe-area-inset-top)) 1rem max(1rem, env(safe-area-inset-bottom)); overflow-y: auto; isolation: isolate; background: rgb(255 255 255 / 58%); }
+.auth-preview { position: absolute; inset: 0; z-index: 0; padding: 2rem clamp(1.5rem, 6vw, 7rem); color: #666; background: rgb(255 255 255 / 62%); backdrop-filter: blur(8px); pointer-events: none; }
+.auth-preview-header { display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; border-bottom: 1px solid var(--line); font-size: .85rem; }
+.auth-preview-header span:first-child { margin-right: auto; color: var(--black); font-size: 1.05rem; font-weight: 800; }
+.auth-preview-content { display: grid; max-width: 38rem; gap: 1rem; padding-top: clamp(6rem, 16vh, 11rem); }
+.auth-preview-content p { margin: 0; font-size: .85rem; font-weight: 700; }
+.auth-preview-content strong { max-width: 16ch; color: var(--color-ink-soft); font-size: clamp(2rem, 6vw, 4rem); letter-spacing: -.05em; line-height: 1.05; }
+.auth-preview-content span { max-width: 30rem; font-size: 1rem; }
+.auth-page .auth-card { position: relative; z-index: 1; width: min(100%, 28rem); padding: clamp(1.5rem, 4vw, 2.5rem); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-lg); }
+.auth-page .auth-card:focus { outline: none; }
+.auth-page .auth-back { display: inline-flex; min-height: 2.75rem; align-items: center; margin-bottom: 1.75rem; color: var(--muted); font-size: .9rem; }
+.auth-brand { display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: 1.75rem; }
+.auth-wordmark { display: block; width: 210px; height: auto; }
+.auth-page .auth-card h1 { max-width: none; color: var(--black); font-size: clamp(2.25rem, 8vw, 3.1rem); }
+.auth-page .auth-form { display: grid; gap: 1rem; margin-top: 1.75rem; }
+.auth-page .auth-form label { display: grid; gap: .45rem; color: var(--black); font-size: .92rem; font-weight: 700; }
+.auth-page .auth-form input { width: 100%; min-height: 3rem; padding: .75rem .85rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: #fff; color: var(--black); }
+.auth-page .auth-form input::placeholder { color: #888; }
+.auth-page .auth-form input:focus-visible { border-color: var(--black); outline: 2px solid var(--black); outline-offset: 2px; }
+.password-field { position: relative; display: block; }
+.password-field input { padding-right: 4.3rem !important; }
+.password-toggle { position: absolute; top: 50%; right: .25rem; display: grid !important; width: 2.75rem !important; min-height: 2.75rem !important; place-items: center; padding: .3rem; border: 0 !important; background: transparent !important; color: #444 !important; transform: translateY(-50%); }
+.password-toggle svg { width: 1.15rem; height: 1.15rem; }
+.password-toggle:hover { color: var(--black) !important; }
+.auth-page .auth-form button[type="submit"] { width: 100%; border: 0; font: inherit; }
+.auth-page .field-error, .auth-page .form-status { min-height: 1.25rem; margin: 0; color: var(--color-ink-soft); font-size: .85rem; font-weight: 400; }
+.auth-page .field-error { color: var(--black); }
+.auth-page .auth-switch { margin: .25rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--line); color: var(--muted); text-align: center; }
+.auth-page .auth-switch a, .auth-page .auth-forgot a { display: inline-flex; min-height: 2.75rem; align-items: center; color: var(--black); font-weight: 800; }
+.auth-page .auth-forgot { margin: -.35rem 0 0; text-align: right; font-size: .85rem; }
+.auth-description { color: var(--muted); line-height: 1.5; }
+.reset-success { display: grid; gap: 1rem; margin-top: 1.75rem; color: var(--black); line-height: 1.5; }
+
+@media (min-width: 900px) {
+  .auth-layer { grid-template-columns: minmax(22rem, 32rem) minmax(22rem, 28rem); gap: clamp(3rem, 6vw, 6rem); align-items: center; justify-content: center; justify-items: stretch; padding-inline: clamp(2rem, 5vw, 5rem); }
+  .auth-preview { position: relative; inset: auto; align-self: center; padding: 0; background: transparent; backdrop-filter: none; }
+  .auth-preview-content { width: min(100%, 32rem); max-width: none; padding-top: 0; }
+  .auth-preview-content strong { max-width: 12ch; font-size: clamp(2.6rem, 4.2vw, 4rem); }
+  .auth-page .auth-card { align-self: center; justify-self: center; }
+}
+
+@media (max-width: 700px) {
+  .auth-layer { padding: 1rem; }
+  .auth-preview { padding-inline: 1.5rem; }
+  .auth-page .auth-card { border-radius: var(--radius-md); }
+}
+
+@media (max-width: 480px) {
+  .auth-layer { align-items: start; overflow-y: auto; padding: 1rem .75rem 2rem; }
+  .auth-page .auth-card { width: min(100%, 30rem); margin-block: auto; padding: 1.25rem; }
+  .auth-wordmark { width: 190px; }
+  .auth-page .auth-card h1 { font-size: 2rem; }
+  .auth-page .auth-form { gap: .85rem; margin-top: 1.25rem; }
+  .auth-page .auth-form input { min-height: 2.85rem; }
+}

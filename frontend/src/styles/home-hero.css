@@ -1,0 +1,29 @@
+.hero-carousel { position: relative; overflow: hidden; margin-bottom: clamp(3rem, 6vw, 5rem); border-block: 1px solid var(--line); background: var(--surface); }
+.hero-carousel--fallback { display: grid; min-height: 28rem; align-items: center; padding: clamp(2rem, 6vw, 5rem); }
+.hero-carousel-track { display: flex; transition: transform var(--dur-slow) var(--ease-out-quint); }
+.hero-carousel-item { width: 100%; min-width: 100%; }
+.hero-slide { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(18rem, .8fr); gap: clamp(2rem, 8vw, 8rem); min-height: clamp(27rem, 43vw, 34rem); align-items: center; width: min(100% - 4rem, 90rem); margin-inline: auto; padding: clamp(2.5rem, 6vw, 5rem) 0; }
+.hero-slide-copy { max-width: 42rem; }
+.hero-slide h1 { max-width: 13ch; margin: .35rem 0 0; font-family: var(--font-display); font-size: clamp(2.7rem, 5vw, 5.1rem); font-weight: 500; letter-spacing: -.045em; line-height: .96; }
+.hero-slide-author { margin: 1rem 0 0; color: var(--text-muted); font-size: 1rem; }
+.hero-slide-description { display: -webkit-box; max-width: 38rem; margin: 1.25rem 0 0; overflow: hidden; color: var(--text-muted); font-size: 1.05rem; line-height: 1.65; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.hero-slide-prices { display: flex; gap: 2.5rem; margin: 2rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.hero-slide-prices dt { color: var(--text-muted); font-size: .7rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.hero-slide-prices dd { margin: .35rem 0 0; font-family: var(--font-sans); font-size: 1.45rem; font-weight: 800; letter-spacing: -.035em; }
+.hero-slide-prices small { margin-left: .2rem; color: var(--text-muted); font-family: var(--font-sans); font-size: .8rem; font-weight: 600; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 2rem; }
+.hero-slide-cover { display: grid; place-items: center; }
+.hero-slide-cover > * { width: min(100%, 18rem); aspect-ratio: 2 / 3; object-fit: contain; box-shadow: 16px 18px 0 var(--surface-muted), 17px 19px 0 var(--border); }
+.hero-carousel-nav { display: flex; justify-content: space-between; align-items: center; width: min(100% - 4rem, 90rem); padding: 0 0 1.5rem; margin-inline: auto; }
+.hero-carousel-nav > button, .hero-carousel-dots button { border: 0; background: transparent; cursor: pointer; }
+.hero-carousel-nav > button { display: grid; width: 2.75rem; height: 2.75rem; place-items: center; border: 1px solid var(--border); border-radius: 50%; color: var(--text); font-size: 1.2rem; }
+.hero-carousel-nav > button:disabled { cursor: not-allowed; opacity: .35; }
+.hero-carousel-dots { display: flex; gap: .55rem; }
+.hero-carousel-dots button { width: .55rem; height: .55rem; padding: 0; border-radius: 50%; background: var(--border); }
+.hero-carousel-dots button[aria-selected="true"] { width: 1.6rem; border-radius: 99px; background: var(--primary); }
+@media (max-width: 760px) { .hero-slide { grid-template-columns: 1fr; gap: 1.75rem; width: min(100% - 2rem, 90rem); min-height: 0; padding-block: 2.5rem 1.5rem; } .hero-slide-cover { order: -1; } .hero-slide-cover > * { width: min(100%, 12rem); } .hero-slide h1 { font-size: clamp(2.7rem, 13vw, 4rem); } .hero-slide-prices { gap: 1.5rem; } .hero-carousel-nav { width: min(100% - 2rem, 90rem); } }
+@media (prefers-reduced-motion: reduce) { .hero-carousel-track { transition: none; } }
+.hero-carousel-item { flex: 0 0 100%; }
+.hero-carousel-item[aria-hidden="true"] { visibility: hidden; }
+.hero-carousel-dots button { width: 2.75rem; height: 2.75rem; }
+.hero-carousel-dots button[aria-selected="true"] { width: 2.75rem; }
