@@ -8,7 +8,7 @@ test("public home renders without backend credentials", async ({ unauthenticated
   // — pinning the fallback text would make this pass only while the backend is down.
   await expect(unauthenticatedPage.locator(".hero-spotlight")).toBeVisible();
   await expect(unauthenticatedPage.getByRole("heading", { level: 1 })).toBeVisible();
-  await expect(unauthenticatedPage.getByRole("banner").getByRole("link", { name: "VelstrongBook, trang chủ" })).toBeVisible();
+  await expect(unauthenticatedPage.getByRole("banner").getByRole("link", { name: "Sách Nhà, trang chủ" })).toBeVisible();
   await expect(unauthenticatedPage.getByRole("banner").getByRole("link", { name: "Đăng nhập" })).toBeVisible();
 });
 

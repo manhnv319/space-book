@@ -129,7 +129,7 @@ test("auth routes isolate an inert preview behind a focus-managed dialog", async
     await expect(preview).toHaveAttribute("aria-hidden", "true");
     await expect(preview).toHaveAttribute("inert", "");
     await expect(preview.locator("a, button, input")).toHaveCount(0);
-    await expect(dialog.getByRole("img", { name: "VelstrongBook" })).toHaveCount(1);
+    await expect(dialog.getByRole("img", { name: "Sách Nhà" })).toHaveCount(1);
 
     const homeLink = dialog.getByRole("link", { name: "Về trang chủ" });
     const switchLink = dialog.getByRole("link", { name: route === "/register" ? "Đăng nhập" : "Tạo tài khoản" });

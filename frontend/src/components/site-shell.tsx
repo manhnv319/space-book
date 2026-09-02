@@ -25,7 +25,7 @@ export async function SiteShell({ children }: Readonly<{ children: ReactNode }>)
     <header className="site-header">
       <div className="site-header-main">
         <MobileNavigationDrawer>{navLinks}</MobileNavigationDrawer>
-        <Link aria-label="VelstrongBook, trang chủ" className="brand" href="/"><Image alt="VelstrongBook" height={30} priority src="/brand/velstrongbook-wordmark.png" width={184} /></Link>
+        <Link aria-label="Sách Nhà, trang chủ" className="brand" href="/"><Image alt="" aria-hidden="true" height={44} priority src="/brand/sach-nha-logo.png" width={44} /><span className="brand-name">Sách Nhà</span></Link>
         <SiteSearchForm />
         <div className="header-actions">
           <Link aria-label="Giỏ hàng" className="header-action" href="/gio-hang" title="Giỏ hàng"><CartIcon /><CartBadge /></Link>

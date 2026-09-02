@@ -4,8 +4,8 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "VelstrongBook | Mua và thuê sách", template: "%s | VelstrongBook" },
-  description: "Khám phá sách để mua sở hữu hoặc thuê linh hoạt cùng VelstrongBook.",
+  title: { default: "Sách Nhà | Mua và thuê sách", template: "%s | Sách Nhà" },
+  description: "Không gian sách để mua sở hữu hoặc thuê linh hoạt theo nhịp đọc của bạn.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {

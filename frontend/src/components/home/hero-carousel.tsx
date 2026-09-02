@@ -40,5 +40,5 @@ export function HeroCarousel({ slides }: { slides: HeroSlideModel[] }) {
 }
 
 function HeroFallback() {
-  return <section className="hero-carousel hero-carousel--fallback hero-spotlight"><div className="hero-slide-copy"><p className="eyebrow">VelstrongBook</p><h1>Một không gian để tìm cuốn sách tiếp theo.</h1><p className="hero-slide-description">Khám phá sách để mua sở hữu hoặc thuê linh hoạt theo nhịp đọc của bạn.</p><Link className="button" href="/sach">Khám phá sách</Link></div></section>;
+  return <section className="hero-carousel hero-carousel--fallback hero-spotlight"><div className="hero-slide-copy"><p className="eyebrow">Sách Nhà</p><h1>Một không gian để tìm cuốn sách tiếp theo.</h1><p className="hero-slide-description">Khám phá sách để mua sở hữu hoặc thuê linh hoạt theo nhịp đọc của bạn.</p><Link className="button" href="/sach">Khám phá sách</Link></div></section>;
 }

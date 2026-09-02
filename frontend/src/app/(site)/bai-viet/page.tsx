@@ -27,7 +27,7 @@ export default async function BlogListPage({ searchParams }: BlogListPageProps) 
     <div className="catalog-container blog-list-container">
       <div className="catalog-header">
         <h1>Bài viết</h1>
-        <p className="lead">Câu chuyện, hướng dẫn và cập nhật từ VelstrongBook.</p>
+        <p className="lead">Câu chuyện, hướng dẫn và cập nhật từ Sách Nhà.</p>
       </div>
 
       {postsData === null && (

@@ -66,9 +66,9 @@ test("forgot password continues into reset fields without asking for email again
   }
 });
 
-test("login form keeps the single horizontal brand and accessible password controls", async ({ page }) => {
+test("login form keeps the Sách Nhà brand and accessible password controls", async ({ page }) => {
   await page.goto("/login");
-  await expect(page.getByRole("dialog", { name: "Đăng nhập" }).getByRole("img", { name: "VelstrongBook" })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "Đăng nhập" }).getByRole("img", { name: "Sách Nhà" })).toBeVisible();
   await expect(page.getByLabel("Tên đăng nhập/Email")).toBeVisible();
   await expect(page.locator('input[name="password"]')).toHaveAttribute("type", "password");
   await expect(page.getByRole("button", { name: "Đăng nhập" })).toBeDisabled();
@@ -102,7 +102,7 @@ test("site shell keeps the ecommerce header and footer consistent", async ({ pag
   await expect(page.getByRole("img", { name: "Giỏ thuê" })).toHaveCount(0);
   await expect(page.getByRole("banner").getByRole("link", { name: "Đăng nhập", exact: true })).toBeVisible();
   await expect(page.getByRole("banner").getByRole("link", { name: "Đăng ký", exact: true })).toBeVisible();
-  await expect(page.getByRole("contentinfo")).toContainText("VelstrongBook");
+  await expect(page.getByRole("contentinfo")).toContainText("Sách Nhà");
 });
 
 test("site shell remains usable on a phone viewport", async ({ page }) => {
