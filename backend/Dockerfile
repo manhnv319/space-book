@@ -10,7 +10,7 @@ RUN mvn -B -ntp package -DskipTests
 FROM eclipse-temurin:21-jre-alpine AS runner
 WORKDIR /app
 ENV JAVA_OPTS=""
-LABEL org.opencontainers.image.source="https://github.com/manhnv319/book-backend-hex"
+LABEL org.opencontainers.image.source="https://github.com/manhnv319/space-book"
 
 RUN apk add --no-cache libwebp-tools && addgroup -S spring && adduser -S spring -G spring
 COPY --from=builder /app/target/*.jar app.jar

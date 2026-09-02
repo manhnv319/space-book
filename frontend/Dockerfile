@@ -15,7 +15,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
-LABEL org.opencontainers.image.source="https://github.com/manhnv319/book-store-fe-new"
+LABEL org.opencontainers.image.source="https://github.com/manhnv319/space-book"
 
 RUN addgroup -S nextjs -g 1001 && adduser -S nextjs -u 1001
 
