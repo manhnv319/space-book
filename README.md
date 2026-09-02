@@ -1,8 +1,12 @@
 # Space Book
 
 <p align="center">
+  <a href="https://github.com/manhnv319/space-book/actions/workflows/deploy.yml">
+    <img src="https://img.shields.io/badge/%F0%9F%9A%80%20SHIP%20IT-DEPLOY%20TO%20PROD-238636?style=for-the-badge&logo=githubactions&logoColor=white" alt="Ship It - Deploy to Prod" />
+  </a>
+  &nbsp;
   <a href="https://github.com/manhnv319/space-book/actions/workflows/ci.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/manhnv319/space-book/ci.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white&label=CI%20Pipeline" alt="CI Pipeline" />
+    <img src="https://img.shields.io/badge/CI-Pipeline-15803d?style=for-the-badge&logo=githubactions&logoColor=white" alt="CI Pipeline" />
   </a>
   &nbsp;
   <img src="https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 21" />
