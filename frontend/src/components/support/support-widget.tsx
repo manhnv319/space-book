@@ -71,7 +71,7 @@ export function SupportWidget({ action, signedIn }: Readonly<{ action?: SupportA
 
   return <div className="support-widget">
     {open && <section aria-label="Nhắn với nhà sách" className="support-widget-panel">
-      <header className="support-widget-header"><div><p>Hỗ trợ VelstrongBook</p><strong>Nhắn với nhà sách</strong></div><button aria-label="Đóng khung chat" onClick={() => setOpen(false)} title="Đóng" type="button"><CloseIcon /></button></header>
+      <header className="support-widget-header"><div><p>Hỗ trợ Sách Nhà</p><strong>Nhắn với nhà sách</strong></div><button aria-label="Đóng khung chat" onClick={() => setOpen(false)} title="Đóng" type="button"><CloseIcon /></button></header>
       <div className="support-widget-body" data-chat-scroll-container>
         {error ? <p className="form-status" role="alert">{error}</p>
           : conversation ? <ChatThread emptyHint="Bạn cứ nhắn, nhà sách sẽ phản hồi trong giờ làm việc." focusMessageId={focusMessageId} messages={conversation.messages} />

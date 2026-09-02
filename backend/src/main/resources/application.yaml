@@ -70,7 +70,7 @@ app:
     enabled: ${WEB_PUSH_ENABLED:false}
     public-key: ${WEB_PUSH_PUBLIC_KEY:}
     private-key: ${WEB_PUSH_PRIVATE_KEY:}
-    subject: ${WEB_PUSH_SUBJECT:mailto:support@velstrongbook.asia}
+    subject: ${WEB_PUSH_SUBJECT:mailto:manhnv319@gmail.com}
   media:
     storage-path: ${MEDIA_STORAGE_PATH:./uploads}
     max-bytes: ${MEDIA_MAX_BYTES:10485760}

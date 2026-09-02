@@ -152,7 +152,7 @@
 .auth-page .auth-card:focus { outline: none; }
 .auth-page .auth-back { display: inline-flex; min-height: 2.75rem; align-items: center; margin-bottom: 1.75rem; color: var(--muted); font-size: .9rem; }
 .auth-brand { display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: 1.75rem; }
-.auth-wordmark { display: block; width: 210px; height: auto; }
+.auth-logo { display: block; width: 9rem; height: 9rem; border-radius: 50%; object-fit: cover; }
 .auth-page .auth-card h1 { max-width: none; color: var(--black); font-size: clamp(2.25rem, 8vw, 3.1rem); }
 .auth-page .auth-form { display: grid; gap: 1rem; margin-top: 1.75rem; }
 .auth-page .auth-form label { display: grid; gap: .45rem; color: var(--black); font-size: .92rem; font-weight: 700; }
@@ -190,7 +190,7 @@
 @media (max-width: 480px) {
   .auth-layer { align-items: start; overflow-y: auto; padding: 1rem .75rem 2rem; }
   .auth-page .auth-card { width: min(100%, 30rem); margin-block: auto; padding: 1.25rem; }
-  .auth-wordmark { width: 190px; }
+.auth-logo { width: 8rem; height: 8rem; }
   .auth-page .auth-card h1 { font-size: 2rem; }
   .auth-page .auth-form { gap: .85rem; margin-top: 1.25rem; }
   .auth-page .auth-form input { min-height: 2.85rem; }

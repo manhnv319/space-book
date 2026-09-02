@@ -1,4 +1,4 @@
-# Space Book — Velstrong Bookstore (HaUI Master: Advanced Databases)
+# Space Book — Sách Nhà (HaUI Master: Advanced Databases)
 
 Full-stack Bookstore and Rental platform developed for the **Advanced Databases** (Dữ liệu nâng cao) Master's curriculum at Hanoi University of Industry (HaUI):
 - **Backend** (`backend/`): Spring Boot 4 (Java 21), Hexagonal Architecture (Ports & Adapters) + Domain-Driven Design (DDD). Default runtime persistence is **MongoDB 7** (Spring Data MongoDB) per Advanced Databases curriculum requirements (NoSQL / Document store with replica set multi-document ACID transactions). A secondary **PostgreSQL 17** adapter (Spring Data JPA + Flyway) is maintained behind the `postgres` profile. Token denylist and caching are powered by Redis 7.

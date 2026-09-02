@@ -56,7 +56,7 @@ export function AuthDialog({ children, titleId }: Readonly<AuthDialogProps>) {
     <div className="auth-layer" onClick={handleLayerClick}>
       <div aria-hidden="true" className="auth-preview" data-testid="auth-backdrop" inert>
         <div className="auth-preview-content">
-          <p>VELSTRONGBОOK</p>
+          <p>SÁCH NHÀ</p>
           <strong>Nơi những trang sách tìm được người đọc.</strong>
           <span>Khám phá những cuốn sách phù hợp với bạn.</span>
         </div>

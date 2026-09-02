@@ -44,7 +44,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         <p className="lead">
           {searchQuery
             ? `Tìm thấy ${booksData.totalElements} kết quả phù hợp`
-            : collection ? "Những tựa sách được VelstrongBook chọn cho bạn." : "Tất cả các đầu sách sẵn có để Mua hoặc Thuê với giá tốt nhất."}
+            : collection ? "Những tựa sách được Sách Nhà chọn cho bạn." : "Tất cả các đầu sách sẵn có để Mua hoặc Thuê với giá tốt nhất."}
         </p>
       </div>
 

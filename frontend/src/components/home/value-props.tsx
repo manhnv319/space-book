@@ -5,5 +5,5 @@ const PROPS = [
 ] as const;
 
 export function ValueProps() {
-  return <section className="home-section value-props" aria-label="Cam kết VelstrongBook"><ul className="features-grid">{PROPS.map(([title, body], index) => <li className="feature-card" key={title}><span aria-hidden="true" className="feature-card-index">0{index + 1}</span><div><h3>{title}</h3><p>{body}</p></div></li>)}</ul></section>;
+  return <section className="home-section value-props" aria-label="Cam kết Sách Nhà"><ul className="features-grid">{PROPS.map(([title, body], index) => <li className="feature-card" key={title}><span aria-hidden="true" className="feature-card-index">0{index + 1}</span><div><h3>{title}</h3><p>{body}</p></div></li>)}</ul></section>;
 }

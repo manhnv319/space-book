@@ -40,7 +40,7 @@ export function AdminShell({ user, children, supportUnreadCount }: Readonly<{ us
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d={collapsed ? "m9 5 7 7-7 7" : "m15 5-7 7 7 7"} fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" /></svg>
         </button>
         <Link className="admin-brand" href="/admin">
-          VelstrongBook <span>Quản trị</span>
+          Sách Nhà <span>Quản trị</span>
         </Link>
         <AdminNavigation collapsed={collapsed} groups={groups} />
         <div className="admin-sidebar-footer">

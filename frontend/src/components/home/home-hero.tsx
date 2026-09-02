@@ -74,7 +74,7 @@ function HeroFallback() {
   return (
     <section className="hero-spotlight hero-spotlight--empty" aria-labelledby="hero-title">
       <div className="hero-spotlight-body">
-        <p className="eyebrow">VelstrongBook Store</p>
+        <p className="eyebrow">Sách Nhà</p>
         <h1 id="hero-title" className="hero-spotlight-title">Nơi những trang sách tìm được người đọc.</h1>
         <p className="hero-spotlight-blurb">
           Khám phá hàng ngàn cuốn sách hay với hình thức <strong>mua sở hữu</strong> hoặc{" "}
