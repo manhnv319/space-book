@@ -61,6 +61,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Start Backing Services (MongoDB rs0 & Redis)
+        run: |
+          docker compose up -d
+          # Wait for MongoDB replica set to initialize
+          timeout 30s bash -c 'until docker compose exec -T mongo mongosh --quiet --eval "db.adminCommand({ ping: 1 }).ok" | grep -q 1; do sleep 1; done'
+
       - name: Run Maven Tests
         working-directory: backend
         run: ./mvnw test -B

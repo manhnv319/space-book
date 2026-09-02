@@ -1,8 +1,8 @@
-# Velstrong Bookstore — HaUI Master: Dữ liệu nâng cao
+# Space Book — Velstrong Bookstore (HaUI Master: Advanced Databases)
 
-Full-stack Bookstore platform phục vụ đề tài môn **Dữ liệu nâng cao** (Cao học CNTT - HaUI):
-- **Backend** (`backend/`): Spring Boot 4 (Java 21), Hexagonal Architecture (Ports & Adapters) + DDD. Runtime persistence mặc định là **MongoDB 7** (Spring Data MongoDB) theo yêu cầu môn Dữ liệu nâng cao (NoSQL/Document store), có adapter **PostgreSQL 17** (Spring Data JPA + Flyway) qua profile `postgres`. Cache và token denylist dùng Redis 7.
-- **Frontend** (`frontend/`): Next.js 15 (React 19, App Router) + TypeScript + Tailwind CSS, giao tiếp với backend qua REST API `/api/v1/...`.
+Full-stack Bookstore and Rental platform developed for the **Advanced Databases** (Dữ liệu nâng cao) Master's curriculum at Hanoi University of Industry (HaUI):
+- **Backend** (`backend/`): Spring Boot 4 (Java 21), Hexagonal Architecture (Ports & Adapters) + Domain-Driven Design (DDD). Default runtime persistence is **MongoDB 7** (Spring Data MongoDB) per Advanced Databases curriculum requirements (NoSQL / Document store with replica set multi-document ACID transactions). A secondary **PostgreSQL 17** adapter (Spring Data JPA + Flyway) is maintained behind the `postgres` profile. Token denylist and caching are powered by Redis 7.
+- **Frontend** (`frontend/`): Next.js 15 (React 19, App Router) + TypeScript + Tailwind CSS, communicating with the backend via REST API (`/api/v1/...`).
 
 ---
 
@@ -11,19 +11,19 @@ Full-stack Bookstore platform phục vụ đề tài môn **Dữ liệu nâng ca
 ### Backend: Hexagonal Architecture (Ports & Adapters) + DDD
 ```text
 com.velstrong.bookstore
-├── domain/                      ← Core nghiệp vụ thuần túy (ZERO framework/Spring/JPA)
+├── domain/                      ← Framework-free business core (ZERO Spring/JPA/Mongo dependencies)
 │   ├── model/                   ← Entities, Aggregates, Value Objects, Enums
-│   ├── port/in/                 ← Use case interfaces (Driving ports)
-│   ├── port/out/                ← Repository / External service interfaces (Driven ports)
+│   ├── port/in/                 ← Driving ports (Use case interfaces)
+│   ├── port/out/                ← Driven ports (Repository & SPI interfaces)
 │   └── exception/               ← BookstoreException + typed domain exceptions
-├── application/                 ← Implementations của use cases
-│   ├── service/<bc>/...         ← @Service thực hiện nghiệp vụ qua domain & ports
-│   ├── command/                 ← Command records (input DTO của use case)
+├── application/                 ← Application use cases
+│   ├── service/<bc>/...         ← @Service implementations orchestrating domain models & ports
+│   ├── command/                 ← Command records (Input DTOs for use cases)
 │   └── response/                ← Response DTOs
-└── infrastructure/              ← Adapters công nghệ cụ thể
+└── infrastructure/              ← Technical adapters
     ├── adapter/in/rest/<bc>/    ← @RestController + Request DTOs
     ├── adapter/out/persistence/ ← Persistence adapters:
-    │   ├── mongo/               ← Mongo documents, Mongo repositories, Mongo adapters (Default)
+    │   ├── mongo/               ← Mongo documents, repositories, adapters (Default runtime)
     │   ├── adapter/             ← JPA persistence adapters (Postgres profile)
     │   └── entity/              ← JPA entities (Postgres profile)
     ├── adapter/out/external/    ← EmailAdapter, JwtServiceImpl, BcryptPasswordEncoder
@@ -31,32 +31,32 @@ com.velstrong.bookstore
     └── config/                  ← SecurityConfig, MongoPersistenceConfig, ClockConfig
 ```
 
-#### Quy tắc Hexagonal bất biến (ArchUnit kiểm soát tự động)
-1. `domain.*` **tuyệt đối không** phụ thuộc Spring, JPA, Jackson, MongoDB annotations.
-2. Controller chỉ gọi Driving Ports (`domain.port.in.*`), không gọi trực tiếp Service implementation.
-3. Service chỉ phụ thuộc Ports và Domain, không phụ thuộc Infrastructure.
-4. Thời gian dùng `java.time.Clock` inject từ ngoài, không gọi `LocalDateTime.now()` trực tiếp trong domain/service.
-5. Tiền tệ là `Long` (VND), không dùng `float` / `double` / `BigDecimal`.
+#### Inviolable Hexagonal Rules (Enforced by ArchUnit)
+1. `domain.*` must have **zero** dependencies on Spring, JPA, Jackson, or MongoDB annotations.
+2. Controllers depend only on Driving Ports (`domain.port.in.*`), never directly on Service implementation classes.
+3. Services depend only on Ports and Domain, never on Infrastructure classes.
+4. Time is always parameter-injected via `java.time.Clock`, never hardcoded `LocalDateTime.now()` in domain/services.
+5. Money is stored as `Long` (VND), never floating-point `float`/`double`/`BigDecimal`.
 
 ---
 
 ## Git Flow & Release Process
 
-Áp dụng chuẩn GitHub Flow / PR-based Git Flow (học hỏi từ Tarotvio):
+We follow GitHub Flow with strict CI gates (learned from Tarotvio):
 
 1. **Branching Model**:
-   - Nhánh chính: `main` (production-ready).
-   - Nhánh tính năng: `feat/<tên-tính-năng>` hoặc `feature/<tên-tính-năng>`.
-   - Nhánh sửa lỗi: `fix/<tên-lỗi>`.
-   - Nhánh tái cấu trúc: `refactor/<tên-refactor>`.
+   - Main branch: `main` (production-ready).
+   - Feature branches: `feat/<feature-name>` or `feature/<feature-name>`.
+   - Bugfix branches: `fix/<bug-name>`.
+   - Refactor branches: `refactor/<scope>`.
 2. **Pull Request & CI Gate**:
-   - Mọi thay đổi đều tạo PR trỏ về `main`.
-   - Bắt buộc CI (`.github/workflows/ci.yml`) phải **XANH** trước khi merge:
-     - Frontend: Lint (`eslint`), Typecheck (`tsc --noEmit`), Unit test (`vitest`), Build (`next build`).
-     - Backend: Unit tests, Mockito tests, ArchUnit verification (`mvn test`), Package build.
+   - All changes must target `main` via a Pull Request.
+   - CI (`.github/workflows/ci.yml`) must be **GREEN** before merging:
+     - Frontend: Lint (`eslint`), Typecheck (`tsc --noEmit`), Unit tests (`vitest`), Build (`next build`).
+     - Backend: Unit tests, Mockito mocks, ArchUnit architecture rules (`mvn test`), Application package.
 3. **Merge & Deploy**:
-   - Merge vào `main` qua PR (Squash and merge hoặc Rebase).
-   - Workflow `.github/workflows/deploy.yml` tự động build Docker image ARM64/AMD64 đẩy lên GitHub Container Registry (GHCR) và deploy qua Tailscale/SSH tới VPS host `100.102.202.99:/opt/velstrong-book`.
+   - Merge to `main` via PR (Squash and merge or Rebase).
+   - Deploy workflow (`.github/workflows/deploy.yml`) builds immutable container images to GitHub Container Registry (GHCR) and deploys to VPS host `100.102.202.99:/opt/velstrong-book`.
 
 ---
 
@@ -64,18 +64,18 @@ com.velstrong.bookstore
 
 ### Backend (`backend/`)
 ```bash
-cd backend
-
-# 1. Khởi động MongoDB (replica set rs0) + Redis
+# 1. Start MongoDB (replica set rs0) + Redis
 docker compose up -d
 
-# 2. Chạy test suite (Unit tests + ArchUnit hexagonal tests)
+cd backend
+
+# 2. Run test suite (Unit tests + ArchUnit hexagonal tests)
 ./mvnw test
 
-# 3. Chạy ứng dụng (mặc định profile MongoDB)
+# 3. Start application (defaults to MongoDB profile)
 ./mvnw spring-boot:run
 
-# 4. Chạy với PostgreSQL (profile legacy/fallback)
+# 4. Start with PostgreSQL profile (legacy/fallback)
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=postgres
 ```
 
@@ -83,13 +83,13 @@ docker compose up -d
 ```bash
 cd frontend
 
-# 1. Cài đặt dependencies
+# 1. Install dependencies
 npm install
 
-# 2. Khởi chạy dev server (http://localhost:3000)
+# 2. Start development server (http://localhost:3000)
 npm run dev
 
-# 3. Kiểm tra code & tests
+# 3. Quality & test checks
 npm run lint          # ESLint
 npm run typecheck     # TypeScript compiler check
 npm run test:unit     # Vitest unit tests (105 tests)
@@ -99,5 +99,5 @@ npm run build         # Next.js production build
 ---
 
 ## Conventions
-- **One fix, one commit**: Commit rõ ràng theo Conventional Commits (`feat: ...`, `fix: ...`, `refactor: ...`).
-- **Khóa học Master Dữ liệu nâng cao**: Mọi thay đổi về dữ liệu, query aggregation, transaction trên MongoDB cần tuân thủ schema và indexes cấu hình tại `MongoSchemaInitializer` / `MongoPersistenceConfig`.
+- **One fix, one commit**: Follow Conventional Commits (`feat: ...`, `fix: ...`, `refactor: ...`, `docs: ...`).
+- **HaUI Master: Advanced Databases Curriculum**: Any schema change, aggregation pipeline, or multi-document transaction on MongoDB must comply with schemas and indexes configured in `MongoSchemaInitializer` and `MongoPersistenceConfig`.
