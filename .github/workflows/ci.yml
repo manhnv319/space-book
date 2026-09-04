@@ -72,8 +72,14 @@ jobs:
 
       - name: Run Maven Tests
         working-directory: backend
+        env:
+          JWT_SECRET: velstrong-ci-test-jwt-secret-key-2026-very-long
+          RESET_HMAC_SECRET: velstrong-ci-test-reset-secret-2026
         run: ./mvnw test -B
 
       - name: Package Application
         working-directory: backend
+        env:
+          JWT_SECRET: velstrong-ci-test-jwt-secret-key-2026-very-long
+          RESET_HMAC_SECRET: velstrong-ci-test-reset-secret-2026
         run: ./mvnw package -DskipTests -B
