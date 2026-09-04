@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Space Book Production Runtime Architecture",
+    "subtitle": "Velstrong Bookstore request routing, hexagonal core, and distributed data stores",
+    "output": "runtime.architecture.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/manhnv319/space-book",
+      "revision": "16c52a247bf2cf202e6f4d669dcd2f2911b9bcb1"
+    },
+    "views": [
+      {
+        "id": "primary-request",
+        "label": "Primary request path",
+        "focus": ["visitor", "nginx", "nextjs", "backend", "mongo"],
+        "note": "Follow public customer traffic through Next.js and Spring Boot to durable MongoDB storage."
+      },
+      {
+        "id": "security-and-cache",
+        "label": "Security & session cache",
+        "focus": ["nextjs", "backend", "redis"],
+        "note": "Stateful token denylist and session versioning validated in memory on Redis."
+      },
+      {
+        "id": "external-integrations",
+        "label": "Payment & bank reconciliation",
+        "focus": ["backend", "vnpay", "mail", "mongo"],
+        "note": "Asynchronous payment webhooks and automated IMAP email polling for VietQR matching."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "visitor",
+      "type": "external",
+      "label": "Customer & Staff",
+      "sublabel": "Browser / Mobile Web",
+      "pos": [40, 230],
+      "size": [130, 64],
+      "sources": [{ "path": "frontend/src/app/(site)/page.tsx", "line": 1, "end_line": 20, "label": "Storefront entry" }]
+    },
+    {
+      "id": "nginx",
+      "type": "cloud",
+      "label": "Nginx Proxy",
+      "sublabel": "SSL/TLS & rate limit",
+      "pos": [260, 230],
+      "size": [130, 64],
+      "sources": [{ "path": "docs/architecture/pr-flow-diagrams.md", "line": 10, "end_line": 20, "label": "Reverse proxy boundary" }]
+    },
+    {
+      "id": "nextjs",
+      "type": "frontend",
+      "label": "Next.js 15",
+      "sublabel": "React 19 App Router :3000",
+      "pos": [480, 230],
+      "size": [140, 64],
+      "sources": [{ "path": "frontend/package.json", "line": 10, "end_line": 25, "label": "Next.js dependencies" }]
+    },
+    {
+      "id": "backend",
+      "type": "backend",
+      "label": "Spring Boot 4",
+      "sublabel": "Hexagonal core :8080",
+      "pos": [710, 230],
+      "size": [150, 64],
+      "sources": [{ "path": "backend/src/main/java/com/velstrong/bookstore/BookBackendHexApplication.java", "line": 1, "end_line": 14, "label": "Spring application" }]
+    },
+    {
+      "id": "mongo",
+      "type": "database",
+      "label": "MongoDB 7",
+      "sublabel": "Replica Set rs0 :27017",
+      "pos": [950, 230],
+      "size": [140, 64],
+      "sources": [{ "path": "backend/src/main/java/com/velstrong/bookstore/infrastructure/config/MongoPersistenceConfig.java", "line": 10, "end_line": 18, "label": "Mongo replica set transaction" }]
+    },
+    {
+      "id": "redis",
+      "type": "database",
+      "label": "Redis 7",
+      "sublabel": "Token denylist & cache :6379",
+      "pos": [710, 90],
+      "size": [150, 64],
+      "sources": [{ "path": "backend/src/main/java/com/velstrong/bookstore/infrastructure/adapter/out/cache/RedisTokenAdapter.java", "line": 15, "end_line": 35, "label": "Redis token adapter" }]
+    },
+    {
+      "id": "vnpay",
+      "type": "external",
+      "label": "VNPay Gateway",
+      "sublabel": "IPN Webhook & Sandbox",
+      "pos": [480, 370],
+      "size": [140, 64],
+      "sources": [{ "path": "backend/src/main/java/com/velstrong/bookstore/infrastructure/adapter/out/external/VNPayAdapter.java", "line": 1, "end_line": 20, "label": "VNPay provider" }]
+    },
+    {
+      "id": "mail",
+      "type": "cloud",
+      "label": "Gmail IMAP & SMTP",
+      "sublabel": "Timo Poller & Auth Mail",
+      "pos": [710, 370],
+      "size": [150, 64],
+      "sources": [{ "path": "backend/src/main/java/com/velstrong/bookstore/infrastructure/config/BankTransferConfiguration.java", "line": 1, "end_line": 8, "label": "Bank IMAP config" }]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Production VPS: 100.102.202.99 /opt/space-book",
+      "wraps": ["nginx", "nextjs", "backend", "mongo", "redis"]
+    },
+    {
+      "kind": "security-group",
+      "label": "Docker Network: velstrong-net",
+      "wraps": ["nextjs", "backend", "mongo", "redis"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "visitor-to-nginx",
+      "from": "visitor",
+      "to": "nginx",
+      "label": "HTTPS :443",
+      "variant": "emphasis"
+    },
+    {
+      "id": "nginx-to-nextjs",
+      "from": "nginx",
+      "to": "nextjs",
+      "label": "proxy"
+    },
+    {
+      "id": "nextjs-to-backend",
+      "from": "nextjs",
+      "to": "backend",
+      "label": "REST API :8080",
+      "variant": "emphasis"
+    },
+    {
+      "id": "backend-to-redis",
+      "from": "backend",
+      "to": "redis",
+      "label": "denylist / cache",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "backend-to-mongo",
+      "from": "backend",
+      "to": "mongo",
+      "label": "ACID TX rs0",
+      "variant": "emphasis"
+    },
+    {
+      "id": "nextjs-to-vnpay",
+      "from": "nextjs",
+      "to": "vnpay",
+      "label": "redirect",
+      "labelDy": 24,
+      "variant": "dashed"
+    },
+    {
+      "id": "vnpay-to-backend",
+      "from": "vnpay",
+      "to": "backend",
+      "label": "IPN webhook",
+      "variant": "dashed",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "backend-to-mail",
+      "from": "backend",
+      "to": "mail",
+      "label": "IMAP 993 & SMTP",
+      "labelDy": 24,
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Edge & Ingress",
+      "items": [
+        "Nginx terminates SSL/TLS and fronts the web application",
+        "Static uploads are served directly from media storage"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Application Core",
+      "items": [
+        "Next.js 15 App Router powers the modern React 19 storefront",
+        "Spring Boot 4 backend follows Hexagonal Architecture",
+        "Redis 7 maintains instant token denylist on logout"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Data & Integrations",
+      "items": [
+        "MongoDB 7 Replica Set rs0 provides multi-document ACID transactions",
+        "Background IMAP poller automatically reconciles Timo bank transfers",
+        "VNPay gateway processes online payments via secure IPN"
+      ]
+    }
+  ]
+}

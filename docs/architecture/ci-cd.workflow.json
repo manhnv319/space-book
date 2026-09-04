@@ -1,0 +1,134 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Space Book Production Deployment Gate",
+    "subtitle": "Continuous integration gate protects main; automated CD delivers container images via Tailscale to VPS",
+    "output": "ci-cd.workflow.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "release-path",
+        "label": "PR to production",
+        "focus": ["pull_request", "ci", "merge_main", "build_push", "vps_deploy", "health_check"],
+        "note": "Follow code from PR validation to containerized rollout on the VPS host."
+      },
+      {
+        "id": "quality-gate",
+        "label": "Automated verification gate",
+        "focus": ["ci", "merge_main"],
+        "note": "Frontend Vitest and Backend ArchUnit / Mongo RS election must pass before merge."
+      }
+    ]
+  },
+  "lanes": [
+    { "id": "engineering", "label": "Engineering" },
+    { "id": "github", "label": "GitHub Actions" },
+    { "id": "ghcr", "label": "GitHub Registry" },
+    { "id": "vps", "label": "VPS Production" }
+  ],
+  "phases": [
+    { "id": "change", "label": "Change", "fromCol": 0, "toCol": 0 },
+    { "id": "quality", "label": "Quality gate", "fromCol": 1, "toCol": 1, "variant": "emphasis" },
+    { "id": "package", "label": "Container packaging", "fromCol": 2, "toCol": 3 },
+    { "id": "deploy", "label": "VPS deployment", "fromCol": 4, "toCol": 5, "variant": "security" }
+  ],
+  "mainPath": ["pull_request", "ci", "merge_main", "build_push", "vps_deploy", "health_check"],
+  "nodes": [
+    {
+      "id": "pull_request",
+      "lane": "engineering",
+      "col": 0,
+      "type": "external",
+      "label": "Pull Request",
+      "sublabel": "feature branch to main",
+      "width": 140
+    },
+    {
+      "id": "ci",
+      "lane": "github",
+      "col": 1,
+      "type": "backend",
+      "label": "CI Pipeline",
+      "sublabel": "lint, types, vitest, archunit",
+      "tag": "green gate",
+      "width": 148
+    },
+    {
+      "id": "merge_main",
+      "lane": "engineering",
+      "col": 2,
+      "type": "security",
+      "label": "Merge to Main",
+      "sublabel": "squash or rebase to main",
+      "width": 140
+    },
+    {
+      "id": "build_push",
+      "lane": "ghcr",
+      "col": 3,
+      "type": "cloud",
+      "label": "Build & Push",
+      "sublabel": "multi-stage images to GHCR",
+      "width": 148
+    },
+    {
+      "id": "vps_deploy",
+      "lane": "vps",
+      "col": 4,
+      "type": "cloud",
+      "label": "Tailscale Deploy",
+      "sublabel": "SSH & Docker rolling update",
+      "width": 154
+    },
+    {
+      "id": "health_check",
+      "lane": "vps",
+      "col": 5,
+      "type": "backend",
+      "label": "Service Ready",
+      "sublabel": "healthcheck & RS election",
+      "width": 148
+    }
+  ],
+  "edges": [
+    {
+      "id": "pr-ci",
+      "from": "pull_request",
+      "to": "ci",
+      "label": "open PR",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "ci-merge",
+      "from": "ci",
+      "to": "merge_main",
+      "label": "CI green",
+      "role": "main"
+    },
+    {
+      "id": "merge-build",
+      "from": "merge_main",
+      "to": "build_push",
+      "label": "push to main",
+      "role": "main"
+    },
+    {
+      "id": "build-deploy",
+      "from": "build_push",
+      "to": "vps_deploy",
+      "label": "images ready",
+      "role": "main",
+      "variant": "security"
+    },
+    {
+      "id": "deploy-health",
+      "from": "vps_deploy",
+      "to": "health_check",
+      "label": "rolling up",
+      "role": "main",
+      "variant": "emphasis"
+    }
+  ]
+}
