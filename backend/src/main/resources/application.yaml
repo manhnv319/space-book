@@ -77,9 +77,9 @@ app:
   cors:
     allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://127.0.0.1:3100}
   auth:
-    reset-hmac-secret: ${RESET_HMAC_SECRET:${JWT_SECRET:velstrong-book-store-reset-secret-2026}}
+    reset-hmac-secret: ${RESET_HMAC_SECRET:${JWT_SECRET}}
   jwt:
-    secret: ${JWT_SECRET:velstrong-book-store-secret-key-2026-very-long-secret}
+    secret: ${JWT_SECRET}
     access-token-expiry: 3600
     refresh-token-expiry: 604800
   bank-transfer:
